@@ -26,6 +26,7 @@ public class Cliente {
     
     public static void main(String[] args) {
         
+        System.out.println("\n========== BANK BOSTON ==========\n");
         
         int opcion;
         boolean salir=false; 
@@ -50,7 +51,7 @@ public class Cliente {
            case 4 -> girar();
            case 5 -> consultaSaldo();
            case 6 -> {
-                System.out.println("\n<<< Hasta pronto >>>\n");    
+                System.out.println("\n<<< Bank Boston le agradece su preferencia >>>\n");    
                 salir = true;
                 }
            default -> System.out.println("[ERROR] Ingrese una opcion valida!\n"); 
@@ -74,10 +75,12 @@ public class Cliente {
         
         String[] result = {"","","","","","",""};
         int len = caracteristicas.length;
+        boolean err=false;
         
         for(int i=0; i<len;i++){
             if(contador == 10){
                 System.out.println("[ERROR] Ya se ocuparon las 10 cuentas");
+                err=true;
                 break;
             }
             System.out.print("Ingrese " + caracteristicas[i] + ": ");
@@ -85,16 +88,18 @@ public class Cliente {
             if(caracteristicas[i].equals("Rut")){
                 if(comprobarRUT(result[0]) == false){
                     System.out.println("[ERROR] rut mal digitado...");
+                    err=true;
                     break;
                 }
                 if(existeRUT(result[0]) == true){
                     System.out.println("[ERROR] Rut ya existe!...");
+                    err=true;
                     break;
                 }
             }
         }
         
-        if(contador<10){
+        if(contador<10 && err==false){
         try{
         clientes[contador] = new CuentaCorriente(
                 result[0], // rut
